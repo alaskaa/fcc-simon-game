@@ -3,9 +3,69 @@ html {
 }
 
 h1 {
-  font-family: "Arial";
+  font-family: 'Share Tech Mono', monospace;
   color: white;
   margin: auto;
   text-align: center;
   padding: 15px;
+}
+
+button {
+  text-decoration: none;
+  border: none;
+}
+
+button:focus {
+  outline:0;
+}
+
+#outer-circle {
+  width: 450px;
+  height: 450px;
+  background: grey;
+  -moz-border-radius: 225px;
+	-webkit-border-radius: 225px;
+	border-radius: 225px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#arc-one {
+  width: 195px;
+  height: 195px;
+  background: #b32d00;
+  border-radius: 0px 195px 0px 0px;
+  position: relative;
+  top: 20px;
+  left: 235px;
+}
+
+#arc-two {
+  width: 195px;
+  height: 195px;
+  background:  #0033cc;
+  border-radius: 0px 0px 195px 0px;
+  position: relative;
+  top: 235px;
+  left: 36px;
+}
+
+#arc-three {
+  width: 195px;
+  height: 195px;
+  background: #ffff00;
+  border-radius: 0px 0px 0px 195px;
+  position: relative;
+  top: 37.5px;
+  left: 20px;
+}
+
+#arc-four {
+  width: 195px;
+  height: 195px;
+  background: #009900;
+  border-radius: 195px 0px 0px 0px;
+  position: relative;
+  top: -177px;
+  left: -180px;
 }
