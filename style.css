@@ -1,0 +1,11 @@
+html {
+  background: teal;
+}
+
+h1 {
+  font-family: "Arial";
+  color: white;
+  margin: auto;
+  text-align: center;
+  padding: 15px;
+}
