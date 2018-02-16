@@ -10,6 +10,14 @@ h1 {
   padding: 15px;
 }
 
+h2 {
+  font-family: 'Share Tech Mono', monospace;
+  color: black;
+  margin: auto;
+  text-align: center;
+  padding: 15px;
+}
+
 button {
   text-decoration: none;
   border: none;
@@ -30,10 +38,38 @@ button:focus {
   margin-right: auto;
 }
 
+#inner-black-circle {
+  width: 200px;
+  height: 200px;
+  background: grey;
+  z-index: 10;
+  position: relative;
+  top: -270px;
+  -moz-border-radius: 100px;
+	-webkit-border-radius: 100px;
+	border-radius: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#inner-white-circle {
+  width: 180px;
+  height: 180px;
+  background: white;
+  z-index: 20;
+  position: relative;
+  top: 10px;
+  -moz-border-radius: 90px;
+	-webkit-border-radius: 90px;
+	border-radius: 90px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #arc-one {
   width: 195px;
   height: 195px;
-  background: #b32d00;
+  background: #F44336;
   border-radius: 0px 195px 0px 0px;
   position: relative;
   top: 20px;
@@ -43,7 +79,7 @@ button:focus {
 #arc-two {
   width: 195px;
   height: 195px;
-  background:  #0033cc;
+  background:  #0D47A1;
   border-radius: 0px 0px 195px 0px;
   position: relative;
   top: 235px;
@@ -53,7 +89,7 @@ button:focus {
 #arc-three {
   width: 195px;
   height: 195px;
-  background: #ffff00;
+  background: #FFEB3B;
   border-radius: 0px 0px 0px 195px;
   position: relative;
   top: 37.5px;
@@ -63,7 +99,7 @@ button:focus {
 #arc-four {
   width: 195px;
   height: 195px;
-  background: #009900;
+  background: #8BC34A;
   border-radius: 195px 0px 0px 0px;
   position: relative;
   top: -177px;
