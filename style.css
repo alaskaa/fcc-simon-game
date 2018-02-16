@@ -133,11 +133,15 @@ button:focus {
 #arc-one {
   width: 195px;
   height: 195px;
-  background: #F44336;
+  background: #D50000;
   border-radius: 0px 195px 0px 0px;
   position: relative;
   top: 20px;
   left: 235px;
+}
+
+.arc-one-light {
+  background: #F44336 !important;
 }
 
 #arc-two {
@@ -150,22 +154,34 @@ button:focus {
   left: 36px;
 }
 
+.arc-two-light {
+  background: #304FFE !important;
+}
+
 #arc-three {
   width: 195px;
   height: 195px;
-  background: #FFEB3B;
+  background: #FFEA00;
   border-radius: 0px 0px 0px 195px;
   position: relative;
   top: 37.5px;
   left: 20px;
 }
 
+.arc-three-light {
+  background: #FFF176 !important;
+}
+
 #arc-four {
   width: 195px;
   height: 195px;
-  background: #8BC34A;
+  background: #4CAF50;
   border-radius: 195px 0px 0px 0px;
   position: relative;
   top: -177px;
   left: -180px;
+}
+
+.arc-four-light {
+  background: #8BC34A !important;
 }
