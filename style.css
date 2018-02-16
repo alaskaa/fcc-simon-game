@@ -18,6 +18,14 @@ h1 {
   padding: 20px;
 }
 
+h5 {
+  font-family: 'Share Tech Mono', monospace;
+  color: black;
+  margin: auto;
+  text-align: center;
+  padding: 25px;
+}
+
 button {
   text-decoration: none;
   border: none;
@@ -77,19 +85,19 @@ button:focus {
 #outer-circle {
   width: 450px;
   height: 450px;
-  background: grey;
+  background: #5c5c5c;
   -moz-border-radius: 225px;
 	-webkit-border-radius: 225px;
 	border-radius: 225px;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 1px 1px 1px 1px #5c5c5c;
+  box-shadow: 0.5px 0.5px 0.5px 0.5px black;
 }
 
 #inner-black-circle {
   width: 200px;
   height: 200px;
-  background: grey;
+  background: #5c5c5c;
   z-index: 10;
   position: relative;
   top: -270px;
