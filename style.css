@@ -10,12 +10,12 @@ h1 {
   padding: 15px;
 }
 
-h2 {
+#h1-simon {
   font-family: 'Share Tech Mono', monospace;
   color: black;
   margin: auto;
   text-align: center;
-  padding: 15px;
+  padding: 20px;
 }
 
 button {
@@ -27,6 +27,53 @@ button:focus {
   outline:0;
 }
 
+#strict-btn {
+  width: 30px;
+  height: 30px;
+  -moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+  background: #FFEB3B;
+  border: solid black 2px;
+  box-shadow: 1px 1px #888888;
+  z-index: 20;
+}
+
+#start-btn {
+  width: 30px;
+  height: 30px;
+  -moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+  background: #F44336;
+  border: solid black 2px;
+  box-shadow: 1px 1px #888888;
+  z-index: 20;
+}
+
+#display {
+  width: 50px;
+  height: 30px;
+  background: black;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  box-shadow: 1px 1px #888888;
+}
+
+#wrapper {
+  z-index: 30;
+  display: grid;
+  color: black;
+  margin-top: auto;
+  margin-bottom: auto;
+  grid-template-columns: 50px 30px 30px;
+  grid-template-rows: 30px;
+  grid-gap: 22.5px;
+  margin-left: 10px;
+  margin-top: 0px;
+}
+
 #outer-circle {
   width: 450px;
   height: 450px;
@@ -36,6 +83,7 @@ button:focus {
 	border-radius: 225px;
   margin-left: auto;
   margin-right: auto;
+  box-shadow: 1px 1px 1px 1px #5c5c5c;
 }
 
 #inner-black-circle {
