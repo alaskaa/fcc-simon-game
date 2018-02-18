@@ -9,19 +9,19 @@ var isStrict = false;
 
 
 /* The main game loop */
-var index = 0;
+var index = -1;
 game();
 
 async function game() {
   while (index < 20) {
-    if (index === 0) {
+    if (index === -1) {
       await sleep(2000);
-      playSubSequence(index);
+
       //getButtonPress();
       //checkUserInput(index);
       index++;
+      playSubSequence(index);
       //playSubSequence();
-      console.log("im in the if");
       console.log("Index is currently: " + index);
     } else {
       await getButtonPress();
@@ -32,13 +32,12 @@ async function game() {
 
 async function getButtonPress() {
   console.log("Awaiting Button Press");
-  await sleep(7000); // this is a timeout so when 10000 ms pass, then it get's reset
-  //await getTheUserInputClicks();
+  await sleep(5000+(index*2000)); // multiply this dynamically for more time
   if(anyButtonPressed) {
     console.log("Index is currently: " + index);
     await sleep(2000);
-    checkUserInput(index);
-    playSubSequence(index);
+    await checkUserInput(index);
+    playSubSequence(index+1);
     console.log("A button has been pressed");
     index++;
     anyButtonPressed = false;
@@ -49,14 +48,24 @@ async function getButtonPress() {
   }
 }
 
-function checkUserInput(indexNum) {
+async function checkUserInput(indexNum) {
   console.log("The indexNum is " + indexNum);
   var number;
-  number = user_presses[(indexNum-1)];
+  number = user_presses[indexNum];
   console.log("The colour number is: " + number);
   console.log("Number assigned is " + number);
-  if(number === random_sequence[(indexNum-1)]) {
+  for(var x = 0; x < user_presses.length; x++) {
+    if(user_presses[x] != random_sequence[x]) {
+      await sleep(1000);
+      makeWrongNoise();
+      console.log("hi");
+
+    number = x;
+    console.log("wahoo");
+  // implement here that every index needs checked
+  //if(number === random_sequence[indexNum]) {
     if(score < 21) {
+      console.log("I'm incrementing");
       score++;
       console.log("Score is: " + score);
       document.getElementById("display").innerHTML = score;
@@ -68,16 +77,27 @@ function checkUserInput(indexNum) {
     } else {
       console.log("Error");
     }
-
-  } else {
-    let audio = document.getElementById("wrong_sound");
-    audio.play();
-    if(isStrict) {
-      //go back to the start;
-      reset();
-    } else if (isStrict === false) {
-      playSubSequence();
     }
+  }
+  //} else {
+
+  //}
+}
+
+async function makeWrongNoise() {
+  //await sleep(1000);
+  let audio = document.getElementById("wrong_sound");
+  audio.play();
+  if(isStrict) {
+    //go back to the start;
+    reset();
+  } else if (isStrict === false) {
+    console.log("That's wrong");
+    await sleep(1000);
+    score--;
+    console.log("That's the index seq played: " + (index-1));
+    playSubSequence(index-1);
+    //score--;
   }
 }
 
@@ -99,6 +119,7 @@ async function playThroughCompleteSequence() {
     await sleep(2000);
     console.log(i);
     i++;
+    index = -1;
   }
 }
 
@@ -111,7 +132,8 @@ function sleep(ms) {
 function reset() {
   isStrict = false;
   user_presses = [];
-
+  score = 1;
+  document.getElementById("display").innerHTML = score;
 }
 
 //playThroughCompleteSequence();
@@ -124,7 +146,6 @@ function start() {
 // strict mode
 function strict() {
   isStrict = true;
-
 }
 
 /* sequence check for complete and sub- array and playing the sounds back to the
