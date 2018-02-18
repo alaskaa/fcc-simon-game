@@ -18,6 +18,16 @@ h1 {
   padding: 0px;
 }
 
+#display {
+  font-family: 'Share Tech Mono', monospace;
+  text-align: center;
+  font-size: 25px;
+  margin-right: auto;
+  margin-left: auto;
+  /*margin-bottom: auto;*/
+  color: red;
+}
+
 #h1-simon {
   font-family: 'Share Tech Mono', monospace;
   color: black;
