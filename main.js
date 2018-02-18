@@ -2,19 +2,47 @@ var random_sequence = Array.from({length: 20}, () => Math.floor(Math.random() * 
 console.log(random_sequence);
 
 var user_presses = [];
+var anyButtonpressed = false;
 
 var score = 0;
 var isStrict = false;
 
 
 /* The main game loop */
-var index = 0;
-playSubSequence(index);
-while (index < 20) {
-  await a button press;
-  checkUserInput(index);
-  index++;
-  playSubSequence();
+var index = 1;
+game();
+
+async function game() {
+  while (index < 20) {
+    if (index === 1) {
+      playSubSequence(index);
+      //getButtonPress();
+      //checkUserInput(index);
+      index++;
+      //playSubSequence();
+      console.log("im in the if");
+    } else {
+      await getButtonPress();
+      //console.log("Hello");
+    }
+  }
+}
+
+async function getButtonPress() {
+  console.log("Awaiting Button Press");
+  await sleep(5000); // this is a timeout so when 10000 ms pass, then it get's reset
+  //await getTheUserInputClicks();
+  if(anyButtonpressed) {
+    checkUserInput(index);
+    playSubSequence(index);
+    console.log("A button has been pressed");
+    index++;
+    anyButtonpressed = false;
+  }
+  else {
+    reset();
+    console.log("ive been reset")
+  }
 }
 
 function checkUserInput(indexNum) {
@@ -22,6 +50,7 @@ function checkUserInput(indexNum) {
   if(number === random_sequence[indexNum]) {
     if(score < 20) {
       score++;
+      console.log("Score is: " + score);
     } else if(score === 20) {
       console.log("You won");
       reset();
@@ -34,13 +63,20 @@ function checkUserInput(indexNum) {
       //go back to the start;
       reset();
     } else if (isStrict === false) {
-      repeat the sequence up until then;
+      playSubSequence();
     }
   }
 }
 
 async function playSubSequence(index) {
-
+  var subIndex = index;
+  var i = 0;
+  while(i < subIndex) {
+    number_checker(i);
+    await sleep(2000);
+    console.log(i);
+    i++;
+  }
 }
 
 async function playThroughCompleteSequence() {
@@ -111,7 +147,25 @@ function number_checker(num) {
     }
 }
 
+async function userInputClicks() {
+
+  await getTheUserInputClicks();
+}
+
 /* Click handler logic for sounds and light for user input and clicks */
+async function getTheUserInputClicks() {
+
+  //while((btn_0_pressed = false) && (btn_1_pressed = false) && (btn_2_pressed = false) && (btn_3_pressed = false)) {
+  //  return false;
+  //}
+  //(btn_0_pressed || btn_1_pressed || btn_2_pressed || btn_3_pressed) {
+  //else {
+  //  return true;
+  // }
+  //}
+
+}
+
 document.getElementById("arc-one").onclick = () => {
   var col = document.getElementById("arc-one");
   col.classList.add("arc-one-light");
@@ -122,8 +176,10 @@ document.getElementById("arc-one").onclick = () => {
   audio.play();
   setTimeout(function() {
     col.classList.remove("arc-one-light"); }, 1000);
+  anyButtonpressed = true;
 }
 
+//else if(target.id === "arc-two") {
 document.getElementById("arc-two").onclick = () => {
   var col = document.getElementById("arc-two");
   col.classList.add("arc-two-light");
@@ -134,8 +190,10 @@ document.getElementById("arc-two").onclick = () => {
   audio.play();
   setTimeout(function() {
     col.classList.remove("arc-two-light"); }, 1000);
+  anyButtonpressed = true;
 }
 
+//else if(target.id === "arc-three") {
 document.getElementById("arc-three").onclick = () => {
   var col = document.getElementById("arc-three");
   col.classList.add("arc-three-light");
@@ -145,8 +203,10 @@ document.getElementById("arc-three").onclick = () => {
   audio.play();
   setTimeout(function() {
     col.classList.remove("arc-three-light"); }, 1000);
+  anyButtonpressed = true;
 }
 
+//else if(target.id === "arc-four") {
 document.getElementById("arc-four").onclick = () => {
   var col = document.getElementById("arc-four");
   col.classList.add("arc-four-light");
@@ -156,4 +216,5 @@ document.getElementById("arc-four").onclick = () => {
   audio.play();
   setTimeout(function() {
     col.classList.remove("arc-four-light"); }, 1000);
+  anyButtonpressed = true;
 }
