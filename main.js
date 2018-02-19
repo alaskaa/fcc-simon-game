@@ -48,10 +48,9 @@ async function getButtonPress() {
   await sleep(5000+(index*2000)); // multiply this dynamically for more time
   if(anyButtonPressed) {
     console.log("Vutton Press: Index is currently: " + index);
-    await sleep(2000);
+    //await sleep(2000);
     await checkUserInput(index);
     console.log("A button has been pressed");
-    index++;
     anyButtonPressed = false;
   }
   else {
@@ -63,20 +62,26 @@ async function getButtonPress() {
 }
 
 async function checkUserInput() {
-
-  for(var x = 0; x < user_presses.length; x++) {
+  var correctButton = true;
+  for(var x = 0; x < index+1; x++) {
     if(user_presses[x] != random_sequence[x]) {
       //await sleep(1000);
+      //reset();
       makeWrongNoise();
+      correctButton = false;
       break;
-      console.log("hi");
-    } else if(user_presses[(user_presses.length-1)] === random_sequence[(user_presses.length-1)]) {
+    } else {
+      //continue;
+    }
+  }
+  if(correctButton) {
       console.log("WHAAAAT")
         if(score < 21) {
           score++;
           document.getElementById("display").innerHTML = score;
           user_presses = [];
-          playSubSequence(index+1);
+          index++;
+          playSubSequence(index);
         } else if(score === 20) {
           console.log("You won");
           strictReset();
@@ -84,9 +89,7 @@ async function checkUserInput() {
         } else {
         console.log("Error");
         }
-    } else {
-      continue;
-    }
+
   }
 }
 
@@ -98,9 +101,9 @@ async function makeWrongNoise() {
     strictReset();
   } else if (isStrict === false) {
     reset();
-    console.log("That's the index seq played: " + (index));
+    console.log("That's the index seq played: " + (index-1));
     await sleep(3000);
-    playSubSequence(index-1);
+    //TAKE THIS OUT AGAIN AFTER TESTING playSubSequence(index-1);
   }
 }
 
@@ -135,7 +138,7 @@ function sleep(ms) {
 function reset() {
   isStrict = false;
   user_presses = [];
-  document.getElementById("display").innerHTML = score;
+  //document.getElementById("display").innerHTML = score;
 }
 
 async function strictReset() {
