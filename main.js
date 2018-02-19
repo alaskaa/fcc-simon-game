@@ -10,22 +10,35 @@ var isStrict = false;
 
 /* The main game loop */
 var index = -1;
-game();
+
+function start() {
+  isStrict = false;
+  game();
+}
+
+function strict() {
+  if(!isStrict) {
+    document.getElementById("strict-btn").style.backgroundColor = "green";
+    isStrict = true;
+    game();
+  } else if(isStrict) {
+    document.getElementById("strict-btn").style.backgroundColor = "#FFEB3B";
+    isStrict = false;
+    game();
+  }
+}
 
 async function game() {
   while (index < 20) {
     if (index === -1) {
       await sleep(2000);
 
-      //getButtonPress();
-      //checkUserInput(index);
       index++;
       playSubSequence(index);
-      //playSubSequence();
+
       console.log("Index is currently: " + index);
     } else {
       await getButtonPress();
-      //console.log("Hello");
     }
   }
 }
@@ -34,10 +47,9 @@ async function getButtonPress() {
   console.log("Awaiting Button Press");
   await sleep(5000+(index*2000)); // multiply this dynamically for more time
   if(anyButtonPressed) {
-    console.log("Index is currently: " + index);
+    console.log("Vutton Press: Index is currently: " + index);
     await sleep(2000);
     await checkUserInput(index);
-    playSubSequence(index+1);
     console.log("A button has been pressed");
     index++;
     anyButtonPressed = false;
@@ -45,43 +57,37 @@ async function getButtonPress() {
   else {
     reset();
     console.log("ive been reset")
+    let audio = document.getElementById("wrong_sound");
+    audio.play();
   }
 }
 
-async function checkUserInput(indexNum) {
-  console.log("The indexNum is " + indexNum);
-  var number;
-  number = user_presses[indexNum];
-  console.log("The colour number is: " + number);
-  console.log("Number assigned is " + number);
+async function checkUserInput() {
+
   for(var x = 0; x < user_presses.length; x++) {
     if(user_presses[x] != random_sequence[x]) {
-      await sleep(1000);
+      //await sleep(1000);
       makeWrongNoise();
+      break;
       console.log("hi");
-
-    number = x;
-    console.log("wahoo");
-  // implement here that every index needs checked
-  //if(number === random_sequence[indexNum]) {
-    if(score < 21) {
-      console.log("I'm incrementing");
-      score++;
-      console.log("Score is: " + score);
-      document.getElementById("display").innerHTML = score;
-      user_presses = [];
-    } else if(score === 20) {
-      console.log("You won");
-      reset();
-      score = 0;
+    } else if(user_presses[(user_presses.length-1)] === random_sequence[(user_presses.length-1)]) {
+      console.log("WHAAAAT")
+        if(score < 21) {
+          score++;
+          document.getElementById("display").innerHTML = score;
+          user_presses = [];
+          playSubSequence(index+1);
+        } else if(score === 20) {
+          console.log("You won");
+          strictReset();
+          score = 1;
+        } else {
+        console.log("Error");
+        }
     } else {
-      console.log("Error");
-    }
+      continue;
     }
   }
-  //} else {
-
-  //}
 }
 
 async function makeWrongNoise() {
@@ -89,15 +95,12 @@ async function makeWrongNoise() {
   let audio = document.getElementById("wrong_sound");
   audio.play();
   if(isStrict) {
-    //go back to the start;
-    reset();
+    strictReset();
   } else if (isStrict === false) {
-    console.log("That's wrong");
-    await sleep(1000);
-    score--;
-    console.log("That's the index seq played: " + (index-1));
+    reset();
+    console.log("That's the index seq played: " + (index));
+    await sleep(3000);
     playSubSequence(index-1);
-    //score--;
   }
 }
 
@@ -132,21 +135,18 @@ function sleep(ms) {
 function reset() {
   isStrict = false;
   user_presses = [];
-  score = 1;
   document.getElementById("display").innerHTML = score;
 }
 
-//playThroughCompleteSequence();
-
-// try again mode
-function start() {
-   //isStrict = false;
-}
-
-// strict mode
-function strict() {
+async function strictReset() {
   isStrict = true;
+  user_presses = [];
+  score = 1;
+  document.getElementById("display").innerHTML = score;
+  await sleep(1000);
+  index = 0;
 }
+
 
 /* sequence check for complete and sub- array and playing the sounds back to the
 user*/
@@ -180,6 +180,18 @@ function number_checker(num) {
     setTimeout(function() {
     col.classList.remove("arc-four-light"); }, 1000);
     }
+}
+
+/* Button click logic */
+
+document.getElementById("start-btn").onclick = () => {
+  document.getElementById("display").innerHTML = 1;
+  start();
+}
+
+document.getElementById("strict-btn").onclick = () => {
+  document.getElementById("display").innerHTML = 1;
+  strict();
 }
 
 document.getElementById("arc-one").onclick = () => {
