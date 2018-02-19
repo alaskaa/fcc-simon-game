@@ -9,7 +9,7 @@ var isStrict = false;
 
 
 /* The main game loop */
-var index = -1;
+var index = 0;
 
 function start() {
   isStrict = false;
@@ -30,16 +30,10 @@ function strict() {
 
 async function game() {
   while (index < 20) {
-    if (index === -1) {
-      await sleep(2000);
 
-      index++;
-      playSubSequence(index);
-
-      console.log("Index is currently: " + index);
-    } else {
+      await sleep(3000);
+      await playSubSequence(index);
       await getButtonPress();
-    }
   }
 }
 
@@ -47,15 +41,13 @@ async function getButtonPress() {
   console.log("Awaiting Button Press");
   await sleep(5000+(index*2000)); // multiply this dynamically for more time
   if(anyButtonPressed) {
-    console.log("Vutton Press: Index is currently: " + index);
-    //await sleep(2000);
+
     await checkUserInput(index);
     console.log("A button has been pressed");
     anyButtonPressed = false;
   }
   else {
     reset();
-    console.log("ive been reset")
     let audio = document.getElementById("wrong_sound");
     audio.play();
   }
@@ -65,25 +57,25 @@ async function checkUserInput() {
   var correctButton = true;
   for(var x = 0; x < index+1; x++) {
     if(user_presses[x] != random_sequence[x]) {
-      //await sleep(1000);
-      //reset();
+
       makeWrongNoise();
       correctButton = false;
       break;
     } else {
-      //continue;
+
     }
   }
   if(correctButton) {
-      console.log("WHAAAAT")
+
         if(score < 21) {
           score++;
           document.getElementById("display").innerHTML = score;
           user_presses = [];
           index++;
-          playSubSequence(index);
         } else if(score === 20) {
+          document.getElementById("message").innerHTML = "Congrats! You won!";
           console.log("You won");
+          setTimeout(function() { document.getElementById("message").innerHTML = ""; }, 2000);
           strictReset();
           score = 1;
         } else {
@@ -94,16 +86,13 @@ async function checkUserInput() {
 }
 
 async function makeWrongNoise() {
-  //await sleep(1000);
   let audio = document.getElementById("wrong_sound");
   audio.play();
   if(isStrict) {
     strictReset();
   } else if (isStrict === false) {
     reset();
-    console.log("That's the index seq played: " + (index-1));
-    await sleep(3000);
-    //TAKE THIS OUT AGAIN AFTER TESTING playSubSequence(index-1);
+
   }
 }
 
